@@ -47,31 +47,34 @@ public class ArchivoUtil {
                 if(partes.length == 9){
 
                     int codigo = 0;
-                    LocalDate fecha = LocalDate.parse(partes[5]);
-                    LocalTime hora = LocalTime.parse(partes[6]);
+                    int cedula = 0;
+                    LocalDate fecha = LocalDate.parse(partes[6]);
+                    LocalTime hora = LocalTime.parse(partes[7]);
 
                     try {
 
                         codigo = Integer.parseInt(partes[0]);
+                        cedula = Integer.parseInt(partes[2]);
 
                         Consulta consulta = new Consulta(
 
                             codigo, 
                             partes[1], 
-                            partes[2], 
+                            cedula, 
                             partes[3], 
                             partes[4],
+                            partes[5],
                             fecha, 
                             hora, 
-                            partes[7], 
-                            partes[8]
+                            partes[8], 
+                            partes[9]
                         );
 
                         consultas.add(consulta);
                         
                     } catch (NumberFormatException e) {
                         
-                        System.out.println("El código debe ser un valor numérico");
+                        System.out.println("El código y la cédula debe ser de valor numérico");
                     }   
                 }
  

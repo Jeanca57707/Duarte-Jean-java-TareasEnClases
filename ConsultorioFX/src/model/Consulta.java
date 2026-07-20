@@ -6,6 +6,7 @@ public class Consulta {
 
     private int codigo;
     private String nombre;
+    private int cedula;
     private String telefono;
     private String medico;
     private LocalDate fecha;
@@ -14,11 +15,12 @@ public class Consulta {
     private String motivoConsulta;
     private String estado;
     
-    public Consulta(int codigo, String nombre, String telefono, String medico, String especialidad,
+    public Consulta(int codigo, String nombre, int cedula, String telefono, String medico, String especialidad,
            LocalDate fecha, LocalTime hora, String motivoConsulta, String estado) {
 
         this.codigo = codigo;
         this.nombre = nombre;
+        this.cedula = cedula;
         this.telefono = telefono;
         this.medico = medico;
         this.especialidad = especialidad;
@@ -35,6 +37,10 @@ public class Consulta {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public int getCedula(){
+        return cedula;
     }
 
     public String getTelefono() {
