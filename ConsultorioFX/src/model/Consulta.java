@@ -1,25 +1,32 @@
 package model;
 
+import java.time.*;
+
 public class Consulta {
 
     private int codigo;
     private String nombre;
     private String telefono;
     private String medico;
+    private LocalDate fecha;
     private String especialidad;
+    private LocalTime hora;
     private String motivoConsulta;
     private String estado;
     
     public Consulta(int codigo, String nombre, String telefono, String medico, String especialidad,
-            String motivoConsulta, String estado) {
+           LocalDate fecha, LocalTime hora, String motivoConsulta, String estado) {
 
         this.codigo = codigo;
         this.nombre = nombre;
         this.telefono = telefono;
         this.medico = medico;
         this.especialidad = especialidad;
+        this.fecha = fecha;
+        this.hora  = hora;
         this.motivoConsulta = motivoConsulta;
         this.estado = estado;
+
     }
 
     public int getCodigo() {
@@ -48,12 +55,20 @@ public class Consulta {
 
     public String getEstado() {
         return estado;
+    }  
+
+    public LocalDate getFecha() {
+        return fecha;
     }
 
-    @Override
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    /* @Override
     public String toString(){
 
         return nombre;
-    }
+    } */
     
 }
