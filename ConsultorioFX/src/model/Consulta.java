@@ -7,7 +7,7 @@ public class Consulta {
     private int codigo;
     private String nombre;
     private int cedula;
-    private String telefono;
+    private int telefono;
     private String medico;
     private LocalDate fecha;
     private String especialidad;
@@ -15,7 +15,7 @@ public class Consulta {
     private String motivoConsulta;
     private String estado;
     
-    public Consulta(int codigo, String nombre, int cedula, String telefono, String medico, String especialidad,
+    public Consulta(int codigo, String nombre, int cedula, int telefono, String medico, String especialidad,
            LocalDate fecha, LocalTime hora, String motivoConsulta, String estado) {
 
         this.codigo = codigo;
@@ -33,7 +33,7 @@ public class Consulta {
 
     public Consulta(int codigo, String nombre, String medico, LocalDate fecha, String especialidad, LocalTime hora,
             String estado) {
-                
+
         this.codigo = codigo;
         this.nombre = nombre;
         this.medico = medico;
@@ -55,7 +55,7 @@ public class Consulta {
         return cedula;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
@@ -82,11 +82,5 @@ public class Consulta {
     public LocalTime getHora() {
         return hora;
     }
-
-    /* @Override
-    public String toString(){
-
-        return nombre;
-    } */
     
 }

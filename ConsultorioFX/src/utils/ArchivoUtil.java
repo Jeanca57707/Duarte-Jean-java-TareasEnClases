@@ -13,9 +13,9 @@ public class ArchivoUtil {
         try(FileWriter archivo = new FileWriter("consultas.txt", true)){
 
             archivo.write(consulta.getCodigo() + "-" + consulta.getNombre() + "-"
-            +  consulta.getTelefono() + "-" + consulta.getMedico() + "-" + consulta.getEspecialidad()
-            + "-" + consulta.getFecha() + "-" + consulta.getHora() + "-" + consulta.getMotivoConsulta()
-            + "-" + consulta.getEspecialidad());
+            +  consulta.getCedula() + "-" + consulta.getTelefono() + "-" + consulta.getMedico()
+            + "-" + consulta.getEspecialidad() + "-" + consulta.getFecha() + "-" + consulta.getHora()
+            + "-"+ consulta.getMotivoConsulta() + "-" + consulta.getEstado());
 
             archivo.close();
 
@@ -48,6 +48,7 @@ public class ArchivoUtil {
 
                     int codigo = 0;
                     int cedula = 0;
+                    int telefono = 0;
                     LocalDate fecha = LocalDate.parse(partes[6]);
                     LocalTime hora = LocalTime.parse(partes[7]);
 
@@ -55,13 +56,14 @@ public class ArchivoUtil {
 
                         codigo = Integer.parseInt(partes[0]);
                         cedula = Integer.parseInt(partes[2]);
+                        telefono = Integer.parseInt(partes[3]);
 
                         Consulta consulta = new Consulta(
 
                             codigo, 
                             partes[1], 
                             cedula, 
-                            partes[3], 
+                            telefono, 
                             partes[4],
                             partes[5],
                             fecha, 

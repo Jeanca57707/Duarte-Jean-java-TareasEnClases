@@ -9,11 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import java.util.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -97,19 +99,27 @@ public class RegistrarConsultaController {
     private TableColumn<Consulta, String> tcEstado;
 
 
-    private ObservableList<Consulta> citas = FXCollections.observableArrayList();
+    private ObservableList<Consulta> listaCitas = FXCollections.observableArrayList();
 
 
     @FXML
     private void initialize(){
 
-        lblTitulo.setText("REGISTRAR CITA");
+        lblTitulo.setText("Registrar Nueva Cita");
 
         cmbMedico.getItems().addAll("Pedro Santana" , "Maria Trinidad", "Juan Pablo Duarte");
         cmbEstado.getItems().addAll("Programada", "Atendida", "Cancelada");
         cmbEspecialidad.getItems().addAll("Cardiólogo", "Odontólogo");
 
-        tvCitas.setItems(citas);
+        tcCodigo.setCellValueFactory(new PropertyValueFactory<>("Código"));
+        tcPaciente.setCellValueFactory(new PropertyValueFactory<>("Paciente"));
+        tcMedico.setCellValueFactory(new PropertyValueFactory<>("Médico"));
+        tcEspecialidad.setCellValueFactory(new PropertyValueFactory<>("Especialidad"));
+        tcFecha.setCellValueFactory(new PropertyValueFactory<>("Fecha"));
+        tcHora.setCellValueFactory(new PropertyValueFactory<>("Hora"));
+        tcEstado.setCellValueFactory(new PropertyValueFactory<>("Estado"));
+
+        tvCitas.setItems(listaCitas);
     }
 
     @FXML
@@ -142,8 +152,74 @@ public class RegistrarConsultaController {
 
         Consulta cita = new Consulta(codigo, txtPaciente.getText(), cmbMedico.getValue(), fecha, cmbEspecialidad.getValue(), hora, cmbEstado.getValue());
 
-        citas.add(cita);
+        listaCitas.add(cita);
 
+    }
+
+    @FXML
+    private void limpiar(){
+
+        txtCodigo.clear();
+        txtPaciente.clear();
+        txtCedula.clear();
+        txtTelefono.clear();
+        txtHora.clear();
+        txtMotivo.clear();
+        cmbMedico.setValue(null);
+        cmbEspecialidad.setValue(null);
+        cmbEstado.setValue(null);
+        dpFecha.setValue(null);
+
+    }
+
+    @FXML
+    private void guardarCita(){
+
+        if(txtCodigo.getText().isBlank() || txtCedula.getText().isBlank() || txtPaciente.getText().isBlank()
+        || txtTelefono.getText().isBlank() || txtHora.getText().isBlank() || txtMotivo.getText().isBlank() 
+        || cmbEspecialidad.getValue() == null || cmbEstado.getValue() == null || cmbMedico.getValue() == null
+        || dpFecha.getValue() == null){
+
+            return;
+        }
+        int codigo;
+        int cedula;
+        int telefono;
+        LocalTime hora;
+        LocalDate fecha;
+
+        try {
+            codigo = Integer.parseInt(txtCodigo.getText());
+            hora = LocalTime.parse(txtHora.getText());
+            cedula = Integer.parseInt(txtCedula.getText());
+            telefono = Integer.parseInt(txtTelefono.getText());
+            fecha = dpFecha.getValue();
+            
+        } catch (NumberFormatException e) {
+
+            return;
+
+        } catch (DateTimeParseException e){
+
+            return;
+        }
+
+        Consulta cita = new Consulta(codigo, txtPaciente.getText(), cedula, telefono, cmbMedico.getValue(), cmbEspecialidad.getValue(), fecha, hora, txtMotivo.getText(), cmbEstado.getValue());
+
+        ArchivoUtil.guardarConsulta(cita);
+
+    }
+
+    @FXML
+    private void cargarCitas(){
+
+        tvCitas.getItems().clear();
+
+        ArrayList<Consulta> citas = ArchivoUtil.leerConsultas();
+        listaCitas.clear();
+
+        listaCitas.addAll(citas);
+        
     }
     
 }
