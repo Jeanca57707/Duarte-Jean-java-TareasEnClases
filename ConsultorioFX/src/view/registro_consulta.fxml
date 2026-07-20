@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -40,36 +40,37 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <TextField promptText="Código del paciente" />
-                  <TextField promptText=" Nombre del paciente" />
+                  <TextField fx:id="txtCodigo" promptText="Código del paciente" />
+                  <TextField fx:id="txtPaciente" promptText=" Nombre del paciente" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="20.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <TextField promptText="Cédula" />
-                  <TextField promptText="Teléfono" />
+                  <TextField fx:id="txtCedula" promptText="Cédula" />
+                  <TextField fx:id="txtTelefono" promptText="Teléfono" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="24.0" prefWidth="600.0" spacing="30.0">
+            <HBox alignment="CENTER" prefHeight="24.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <TextField promptText="Hora de la cita">
+                  <TextField fx:id="txtHora" promptText="Hora de la cita">
                      <HBox.margin>
-                        <Insets right="170.0" />
+                        <Insets />
                      </HBox.margin>
                   </TextField>
+                  <DatePicker fx:id="dpFecha" prefHeight="25.0" prefWidth="149.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <ComboBox prefWidth="150.0" promptText="Asignar médico" />
-                  <ComboBox prefWidth="150.0" promptText="Especialidad" />
-                  <ComboBox prefWidth="150.0" promptText="Estado de la cita" />
+                  <ComboBox fx:id="cmbMedico" prefWidth="150.0" promptText="Asignar médico" />
+                  <ComboBox fx:id="cmbEspecialidad" prefWidth="150.0" promptText="Especialidad" />
+                  <ComboBox fx:id="cmbEstado" prefWidth="150.0" promptText="Estado de la cita" />
                </children>
             </HBox>
-            <TextArea prefHeight="82.0" prefWidth="389.0" promptText="Motivo de la consulta" />
+            <TextArea fx:id="txtMotivo" prefHeight="82.0" prefWidth="389.0" promptText="Motivo de la consulta" />
          </children>
          <BorderPane.margin>
             <Insets left="20.0" />
@@ -79,11 +80,11 @@
    <bottom>
       <HBox prefHeight="44.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Button mnemonicParsing="false" text="Registrar" />
-            <Button mnemonicParsing="false" text="Cancelar" />
-            <Button mnemonicParsing="false" text="Limpiar" />
-            <Button mnemonicParsing="false" text="Guardar" />
-            <Button mnemonicParsing="false" text="Cargar" />
+            <Button fx:id="btRegistrar" mnemonicParsing="false" onAction="#registrarCita" text="Registrar" />
+            <Button fx:id="btCancelar" mnemonicParsing="false" text="Cancelar" />
+            <Button fx:id="btLimpiar" mnemonicParsing="false" text="Limpiar" />
+            <Button fx:id="btGuardar" mnemonicParsing="false" text="Guardar" />
+            <Button fx:id="btCargar" mnemonicParsing="false" text="Cargar" />
          </children>
          <BorderPane.margin>
             <Insets left="20.0" />

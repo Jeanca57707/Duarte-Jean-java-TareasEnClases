@@ -31,6 +31,18 @@ public class Consulta {
 
     }
 
+    public Consulta(int codigo, String nombre, String medico, LocalDate fecha, String especialidad, LocalTime hora,
+            String estado) {
+                
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.medico = medico;
+        this.fecha = fecha;
+        this.especialidad = especialidad;
+        this.hora = hora;
+        this.estado = estado;
+    }
+
     public int getCodigo() {
         return codigo;
     }
