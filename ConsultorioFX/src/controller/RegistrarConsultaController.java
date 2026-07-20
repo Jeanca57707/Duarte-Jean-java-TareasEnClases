@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -111,13 +112,13 @@ public class RegistrarConsultaController {
         cmbEstado.getItems().addAll("Programada", "Atendida", "Cancelada");
         cmbEspecialidad.getItems().addAll("Cardiólogo", "Odontólogo");
 
-        tcCodigo.setCellValueFactory(new PropertyValueFactory<>("Código"));
-        tcPaciente.setCellValueFactory(new PropertyValueFactory<>("Paciente"));
-        tcMedico.setCellValueFactory(new PropertyValueFactory<>("Médico"));
-        tcEspecialidad.setCellValueFactory(new PropertyValueFactory<>("Especialidad"));
-        tcFecha.setCellValueFactory(new PropertyValueFactory<>("Fecha"));
-        tcHora.setCellValueFactory(new PropertyValueFactory<>("Hora"));
-        tcEstado.setCellValueFactory(new PropertyValueFactory<>("Estado"));
+        tcCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        tcPaciente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tcMedico.setCellValueFactory(new PropertyValueFactory<>("medico"));
+        tcEspecialidad.setCellValueFactory(new PropertyValueFactory<>("especialidad"));
+        tcFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        tcHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
+        tcEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         tvCitas.setItems(listaCitas);
     }
@@ -140,6 +141,13 @@ public class RegistrarConsultaController {
             codigo = Integer.parseInt(txtCodigo.getText());
             hora = LocalTime.parse(txtHora.getText());
             fecha = dpFecha.getValue();
+
+
+            Consulta cita = new Consulta(codigo, txtPaciente.getText(), txtCedula.getText(), txtTelefono.getText(), cmbMedico.getValue(), cmbEspecialidad.getValue(), fecha, hora, txtMotivo.getText(), cmbEstado.getValue());
+
+            listaCitas.add(cita);
+
+            System.out.println("Cita registrada correctamente");
             
         } catch (NumberFormatException e) {
 
@@ -149,10 +157,6 @@ public class RegistrarConsultaController {
 
             return;
         }
-
-        Consulta cita = new Consulta(codigo, txtPaciente.getText(), cmbMedico.getValue(), fecha, cmbEspecialidad.getValue(), hora, cmbEstado.getValue());
-
-        listaCitas.add(cita);
 
     }
 
@@ -183,16 +187,12 @@ public class RegistrarConsultaController {
             return;
         }
         int codigo;
-        int cedula;
-        int telefono;
         LocalTime hora;
         LocalDate fecha;
 
         try {
             codigo = Integer.parseInt(txtCodigo.getText());
             hora = LocalTime.parse(txtHora.getText());
-            cedula = Integer.parseInt(txtCedula.getText());
-            telefono = Integer.parseInt(txtTelefono.getText());
             fecha = dpFecha.getValue();
             
         } catch (NumberFormatException e) {
@@ -204,7 +204,7 @@ public class RegistrarConsultaController {
             return;
         }
 
-        Consulta cita = new Consulta(codigo, txtPaciente.getText(), cedula, telefono, cmbMedico.getValue(), cmbEspecialidad.getValue(), fecha, hora, txtMotivo.getText(), cmbEstado.getValue());
+        Consulta cita = new Consulta(codigo, txtPaciente.getText(), txtCedula.getText(), txtTelefono.getText(), cmbMedico.getValue(), cmbEspecialidad.getValue(), fecha, hora, txtMotivo.getText(), cmbEstado.getValue());
 
         ArchivoUtil.guardarConsulta(cita);
 
@@ -220,6 +220,26 @@ public class RegistrarConsultaController {
 
         listaCitas.addAll(citas);
         
+    }
+
+    @FXML
+    private void cancelarCita(){
+
+        Consulta cita = tvCitas.getSelectionModel().getSelectedItem();
+
+        if(cita == null){
+
+            return;
+        }
+        cita.setEstado("Cancelada");
+        tvCitas.refresh();
+
+    }
+
+    @FXML
+    private void salir(){
+
+        Platform.exit();
     }
     
 }

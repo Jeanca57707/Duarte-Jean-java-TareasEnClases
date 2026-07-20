@@ -6,8 +6,8 @@ public class Consulta {
 
     private int codigo;
     private String nombre;
-    private int cedula;
-    private int telefono;
+    private String cedula;
+    private String telefono;
     private String medico;
     private LocalDate fecha;
     private String especialidad;
@@ -15,7 +15,7 @@ public class Consulta {
     private String motivoConsulta;
     private String estado;
     
-    public Consulta(int codigo, String nombre, int cedula, int telefono, String medico, String especialidad,
+    public Consulta(int codigo, String nombre, String cedula, String telefono, String medico, String especialidad,
            LocalDate fecha, LocalTime hora, String motivoConsulta, String estado) {
 
         this.codigo = codigo;
@@ -43,6 +43,10 @@ public class Consulta {
         this.estado = estado;
     }
 
+    public void setEstado(String estado){
+        this.estado = estado;
+    }
+
     public int getCodigo() {
         return codigo;
     }
@@ -51,11 +55,11 @@ public class Consulta {
         return nombre;
     }
 
-    public int getCedula(){
+    public String getCedula(){
         return cedula;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 

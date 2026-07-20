@@ -1,0 +1,4 @@
+1-Jean Duarte -4021234569-80942314579-Pedro Santana-Cardiólogo-2026-07-23-14:00-Dolor de Cabeza-Programada
+2-Ana María-402351900-8204567890-Juan Pablo Duarte-Odontólogo-2026-08-04-15:00-Dolores de Muela-Programada
+3|Jeison Amparo|402-158687-0|829-773-0987|Pedro Santana|Cardiólogo|2026-07-29|12:00|Dolores de espalda fuertes|Programada
+4|Dionicio Pujols|402-45689-0|849-009-1234|Pedro Santana|Odontólogo|2026-07-30|16:00|Fractutra de pierna|Programada

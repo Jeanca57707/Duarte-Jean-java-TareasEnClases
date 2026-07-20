@@ -23,8 +23,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
-              <MenuItem mnemonicParsing="false" text="Ver Consultas" />
-                  <MenuItem mnemonicParsing="false" text="Salir" />
+                  <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
             </items>
           </Menu>
         </menus>
@@ -67,7 +66,7 @@
                <children>
                   <ComboBox fx:id="cmbMedico" prefWidth="150.0" promptText="Asignar médico" />
                   <ComboBox fx:id="cmbEspecialidad" prefWidth="150.0" promptText="Especialidad" />
-                  <ComboBox fx:id="cmbEstado" prefWidth="150.0" promptText="Estado de la cita" />
+                  <ComboBox fx:id="cmbEstado" prefWidth="150.0" promptText="Estado" />
                </children>
             </HBox>
             <TextArea fx:id="txtMotivo" prefHeight="82.0" prefWidth="389.0" promptText="Motivo de la consulta" />
@@ -81,7 +80,7 @@
       <HBox prefHeight="44.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
          <children>
             <Button fx:id="btRegistrar" mnemonicParsing="false" onAction="#registrarCita" text="Registrar" />
-            <Button fx:id="btCancelar" mnemonicParsing="false" text="Cancelar" />
+            <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#cancelarCita" text="Cancelar" />
             <Button fx:id="btLimpiar" mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />
             <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#guardarCita" text="Guardar" />
             <Button fx:id="btCargar" mnemonicParsing="false" onAction="#cargarCitas" text="Cargar" />
@@ -92,15 +91,15 @@
       </HBox>
    </bottom>
    <right>
-      <TableView fx:id="tvCitas" prefHeight="421.0" prefWidth="521.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvCitas" prefHeight="421.0" prefWidth="624.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="tcCodigo" prefWidth="75.0" text="Código" />
-          <TableColumn fx:id="tcPaciente" prefWidth="75.0" text="Paciente" />
-            <TableColumn fx:id="tcMedico" prefWidth="75.0" text="Médico" />
-            <TableColumn fx:id="tcEspecialidad" prefWidth="75.0" text="Especialidad" />
-            <TableColumn fx:id="tcFecha" prefWidth="75.0" text="Fecha" />
-            <TableColumn fx:id="tcHora" prefWidth="75.0" text="Hora" />
-            <TableColumn fx:id="tcEstado" prefWidth="75.0" text="Estado" />
+          <TableColumn fx:id="tcPaciente" prefWidth="123.0" text="Paciente" />
+            <TableColumn fx:id="tcMedico" prefWidth="93.0" text="Médico" />
+            <TableColumn fx:id="tcEspecialidad" minWidth="0.0" prefWidth="98.0" text="Especialidad" />
+            <TableColumn fx:id="tcFecha" minWidth="0.0" text="Fecha" />
+            <TableColumn fx:id="tcHora" prefWidth="65.0" text="Hora" />
+            <TableColumn fx:id="tcEstado" minWidth="0.0" prefWidth="89.0" text="Estado" />
         </columns>
          <BorderPane.margin>
             <Insets left="20.0" right="20.0" top="10.0" />
