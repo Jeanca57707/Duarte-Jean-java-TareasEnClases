@@ -2,6 +2,7 @@ package controller;
 
 import utils.*;
 import model.Consulta;
+import model.CitaExcepcion;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import java.util.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -102,6 +105,15 @@ public class RegistrarConsultaController {
 
     private ObservableList<Consulta> listaCitas = FXCollections.observableArrayList();
 
+    private void mostrarAlerta(String titulo, String mensaje){
+
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
 
     @FXML
     private void initialize(){
@@ -131,6 +143,7 @@ public class RegistrarConsultaController {
         || cmbEspecialidad.getValue() == null || cmbEstado.getValue() == null || cmbMedico.getValue() == null
         || dpFecha.getValue() == null){
 
+            mostrarAlerta("Campos Vacíos", "No debe deja ni un campo del formulario vacío");
             return;
         }
         int codigo;
@@ -138,10 +151,25 @@ public class RegistrarConsultaController {
         LocalDate fecha;
 
         try {
+
             codigo = Integer.parseInt(txtCodigo.getText());
             hora = LocalTime.parse(txtHora.getText());
             fecha = dpFecha.getValue();
 
+            if(fecha.isBefore(LocalDate.now())){
+
+                throw new CitaExcepcion("La fecha de la cita no puede sser anterior a la fecha actual");
+            }
+            for(Consulta c : listaCitas){
+
+                if(c.getCodigo() == codigo){
+                    throw new CitaExcepcion("El ódigo del paciente no se puede repetir");
+                }
+                if(c.getMedico().equals(c.getMedico().equals(cmbMedico.getValue()) && c.getFecha().equals(fecha) && c.getHora().equals(hora))){
+
+                    throw new CitaExcepcion("El médico tiene una cita asignada para esta misma fecha y hora");
+                }
+            }
 
             Consulta cita = new Consulta(codigo, txtPaciente.getText(), txtCedula.getText(), txtTelefono.getText(), cmbMedico.getValue(), cmbEspecialidad.getValue(), fecha, hora, txtMotivo.getText(), cmbEstado.getValue());
 
@@ -151,10 +179,17 @@ public class RegistrarConsultaController {
             
         } catch (NumberFormatException e) {
 
+            mostrarAlerta("Error de formato", "El código debe ser de valor numérico");
             return;
 
         } catch (DateTimeParseException e){
 
+            mostrarAlerta("Error de formato de hora", "El formato de la hora debe ser de 24 horas");
+            return;
+
+        }catch(CitaExcepcion e){
+
+            mostrarAlerta("Validacion de cita", e.getMessage());
             return;
         }
 

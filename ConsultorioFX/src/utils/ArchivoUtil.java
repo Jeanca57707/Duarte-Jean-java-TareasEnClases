@@ -3,20 +3,24 @@ package utils;
 import java.io.*;
 import java.util.*;
 import java.time.*;
+import javafx.collections.ObservableList;
 
 import model.Consulta;
 
 public class ArchivoUtil {
 
-    public static void guardarConsulta(Consulta consulta){
+    public static void guardarConsulta(ObservableList<Consulta> lista)throws IOException{
 
         try(FileWriter archivo = new FileWriter("consultas.txt", true)){
 
-            archivo.write(consulta.getCodigo() + "|" + consulta.getNombre() + "|"
-            +  consulta.getCedula() + "|" + consulta.getTelefono() + "|" + consulta.getMedico()
-            + "|" + consulta.getEspecialidad() + "|" + consulta.getFecha() + "|" + consulta.getHora()
-            + "|"+ consulta.getMotivoConsulta() + "|" + consulta.getEstado() + "\n");
+            for(Consulta consulta : lista){
 
+             archivo.write(consulta.getCodigo() + "|" + consulta.getNombre() + "|"
+             +  consulta.getCedula() + "|" + consulta.getTelefono() + "|" + consulta.getMedico()
+             + "|" + consulta.getEspecialidad() + "|" + consulta.getFecha() + "|" + consulta.getHora()
+             + "|"+ consulta.getMotivoConsulta() + "|" + consulta.getEstado() + "\n");
+
+            }
             archivo.close();
 
             System.out.println("Consulta registrada correctamente");
@@ -29,7 +33,7 @@ public class ArchivoUtil {
 
     }
 
-    public static ArrayList<Consulta> leerConsultas(){
+    public static ArrayList<Consulta> leerConsultas()throws IOException{
 
         ArrayList<Consulta> consultas = new ArrayList<>();
 
